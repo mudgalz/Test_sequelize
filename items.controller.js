@@ -24,6 +24,8 @@ async function createItem(req, res) {
 async function findAllItems(req, res) {
   try {
     const data = await items.findAll();
+    // const data = await items.findAll({ limit: 1 });   // Limit Data
+    // const data = await items.findAll({ offset: 1, limit: 2 });  // Skip and find laters (paginations)
     // const data = await items.findAll({ attributes: { include: [["name", "firstName"]] } });   // Including custom column
     // const data = await items.findAll({attributes:{exclude:['price']}});  // Excluding the custom column
     // const data = await items.findAll({where:{name:"TVF",status:"active"}});   // AND Query
@@ -56,6 +58,7 @@ async function updateItem(req, res) {
   };
   try {
     await items.update(updatedData, { where: { name: req.body.name } });
+    // await items.increment({price: 5000}, { where: { name: 'Fib' } })
     res.send("Data Updated for " + req.body.name);
   } catch (error) {
     res.status(500).send(error);
